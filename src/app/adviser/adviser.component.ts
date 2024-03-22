@@ -17,6 +17,9 @@ export class AdviserComponent implements OnInit {
   showBtns = true;
   listUserTurn: any[] = [];
   listUser: any[] = [];
+  priorityValidation: any[] = [];
+  activeFlag = true;
+  countPri = 0;
 
   constructor(private form: FormBuilder, private router: Router) {}
 
@@ -28,18 +31,13 @@ export class AdviserComponent implements OnInit {
     this.consultTurnUser();
   }
 
-  screenTurns (type: any){
-    let shiftsLocalStorage = JSON.parse(localStorage.getItem('User')!);
-    this.listUser =[];
-    if (shiftsLocalStorage) {
-      for (let i = 0; i < shiftsLocalStorage.length; i++) {
-        if (shiftsLocalStorage[i].tipo === type) {
-          this.listUser.push(shiftsLocalStorage[i]);
-        }
+  screenTurns(type: any) {
+    this.priorityValidation = [];
+    this.listUser.forEach((element) => {
+      if (element.tipo === type) {
+        this.priorityValidation.push(element);
       }
-    }
-    // console.log('Asesor:',this.listUserTurn)
-    console.log('Categoria alto', this.listUserTurn)
+    });
   }
 
   consultTurnUser() {
@@ -51,25 +49,46 @@ export class AdviserComponent implements OnInit {
     }
   }
 
-  addTurnUser(user:any) {
+  addTurnUser(user: any) {
     const arr = {
-        nombre: user.nombre,
-        cedula: user.cedula,
-        idAsesor: this.adviserForm.get('idAsesor')?.value,
-    }
+      nombre: user.nombre,
+      cedula: user.cedula,
+      idAsesor: this.adviserForm.get('idAsesor')?.value,
+    };
     this.listUserTurn.push(arr);
     localStorage.setItem('userTurn', JSON.stringify(this.listUserTurn)); //Se llama el array y se convierte a String
     this.router.navigate(['home']); //Asignacion de enrutamiento
-
   }
 
   showShifts() {
     this.showBtns = !this.showBtns;
-    this.prueba();
+    this.validationOrderTurns();
+    this.validate();
   }
 
-  prueba() {
-    console.log('prueba')
+  validationOrderTurns() {
+    //Valida si hay turnos prioritarios para inhabilitar el resto de turnos
+    let shiftsLocalStorage = JSON.parse(localStorage.getItem('User')!);
+    if (shiftsLocalStorage) {
+      for (let i = 0; i < shiftsLocalStorage.length; i++) {
+        this.listUser.push(shiftsLocalStorage[i]);
+        if (shiftsLocalStorage[i].tipo === 'alto') {
+          this.priorityValidation.push(shiftsLocalStorage[i]);
+          this.countPri++;
+        }
+      }
+    }
+    this.countPri > 0 ? (this.activeFlag = false) : (this.activeFlag = true);
+    console.log(this.countPri);
+  }
+
+  validate() {
+    this.listUserTurn.forEach((element) => {
+      if (element.idAsesor === this.adviserForm.get('idAsesor')?.value) {
+        this.priorityValidation = [];
+        this.priorityValidation.push(element);
+        console.log('validacion',element.idAsesor, this.adviserForm.get('idAsesor')?.value)
+      }
+    });
   }
 }
-  

@@ -23,11 +23,11 @@
 
     <div class="container text-center" *ngIf="!showBtns">
       <div class="row align-items-start">
-        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('alto')">Prioritario</button></div>
-        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('medio')">Buena Gente</button></div>
-        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('bajo')">Cliente Normal</button></div>
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('alto')" [disabled]="activeFlag">Prioritario</button></div>
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('medio')" [disabled]="!activeFlag">Buena Gente</button></div>
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('bajo')" [disabled]="!activeFlag">Cliente Normal</button></div>
       </div>
-      <div class="row align-items-start"*ngFor="let item of listUser">
+      <div class="row align-items-start"*ngFor="let item of priorityValidation">
         <div class="col title">{{ item.nombre }}</div>
         <div class="col title">{{ item.cedula }}</div>
         <div class="col title"><button type="button" class="btn btn-success" (click)=" addTurnUser(item)">Asignar</button></div>
