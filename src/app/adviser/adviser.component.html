@@ -1,29 +1,41 @@
 <section class="container">
-    <h1>FORMULARIO ASESOR</h1>
+  <h1>FORMULARIO ASESOR</h1>
 
-    <form [formGroup]="formularioEjemplo">
-      <div>
+  <form [formGroup]="exampleForm">
+    <div *ngIf="showBtns">
+      <div class="form-fields">
         <label for="" class="form-label">Nombre</label>
-  
         <input type="text" formControlName="nombre">
-  
-        <p *ngIf="formularioEjemplo.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
+
+        <p *ngIf="exampleForm.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
       </div>
-  
+
       <div>
         <label for="" class="form-label">Numero Asesor</label>
-  
+
         <input type="text" formControlName="cedula">
-  
-        <p *ngIf="formularioEjemplo.get('cedula')?.errors?.['required']">El campo cedula es requerido</p>
+
+        <p *ngIf="exampleForm.get('cedula')?.errors?.['required']">El campo cedula es requerido</p>
       </div>
-  
-      <button class="btn btn-primary" (click)="agregarUsuarios('alto')">Prioritario</button>
-      <button class="btn btn-primary" (click)="agregarUsuarios('medio')">Buena Gente</button>
-      <button class="btn btn-primary" [disabled]="!formularioEjemplo.valid" (click)="agregarUsuarios('bajo')">Cliente Normal</button>
-  
-    </form>
-  
-  
-  
-  </section>
+
+      <button class="btn btn-primary" [disabled]="!exampleForm.valid" (click)="showShifts()">Ingresar</button>
+    </div>
+
+    <div class="container text-center" *ngIf="!showBtns">
+      <div class="row align-items-start">
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('alto')">Prioritario</button></div>
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('medio')">Buena Gente</button></div>
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('bajo')">Cliente Normal</button></div>
+      </div>
+      <div class="row align-items-start"*ngFor="let item of listUser">
+        <div class="col title">{{ item.nombre }}</div>
+        <div class="col title">{{ item.cedula }}</div>
+        <div class="col title"><button type="button" class="btn btn-success">Asignar</button></div>
+      </div>
+      
+    </div>
+
+  </form>
+
+
+</section>

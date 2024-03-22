@@ -1,1 +1,20 @@
-<p>shifts works!</p>
+<section class="container">
+  <h1>TURNOS</h1>
+
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col title" >Nombre</div>
+      <div class="col title">Tipo Turno</div>
+      <div class="col title">Asesor</div>
+    </div>
+    <div class="row align-items-start" *ngFor="let item of listUser">
+      <div class="col">{{ item.nombre }}</div>
+      <div class="col">{{ item.tipo }}</div>
+      <div class="col">{{ item.cedula }}</div>
+    </div>
+    <button class="btn btn-primary" (click)="backMenu()">Home</button>
+  </div>
+
+  
+</section>
+

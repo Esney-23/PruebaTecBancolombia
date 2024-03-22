@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adviser',
@@ -12,18 +13,35 @@ import {
   styleUrls: ['./adviser.component.css'],
 })
 export class AdviserComponent implements OnInit {
-  formularioEjemplo: FormGroup;
+  exampleForm!: FormGroup;
+  showBtns = true;
+  listUser: any[] = [];
 
-  constructor(private form: FormBuilder) {
-    this.formularioEjemplo = form.group({
+  constructor(private form: FormBuilder, private router: Router) {}
+
+  ngOnInit(): void {
+    this.exampleForm = this.form.group({
       nombre: new FormControl('', [Validators.required]),
-      cedula: new FormControl('', [Validators.required, Validators.min(10)]),
+      cedula: new FormControl('', [Validators.required]),
     });
   }
 
-  ngOnInit(): void {}
+  screenTurns (type: any){
+    let shiftsLocalStorage = JSON.parse(localStorage.getItem('User')!);
+    this.listUser =[];
+    if (shiftsLocalStorage) {
+      for (let i = 0; i < shiftsLocalStorage.length; i++) {
+        if (shiftsLocalStorage[i].tipo === type) {
+          this.listUser.push(shiftsLocalStorage[i]);
+        }
+      }
+    }
+    // console.log('Asesor:',this.listUser)
+    console.log('Categoria alto', this.listUser)
+  }
 
-  agregarUsuarios(type: 'alto' | 'medio' | 'bajo') {
-    alert(type + 'Se ha generado su turno');
+  showShifts() {
+    this.showBtns = !this.showBtns;
   }
 }
+  

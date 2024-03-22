@@ -6,12 +6,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GlobalService } from '../shared/services/global.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })
+
 export class UserComponent implements OnInit {
   exampleForm!: FormGroup;
   showBtns = true;
@@ -19,48 +21,36 @@ export class UserComponent implements OnInit {
 
   constructor(
     private form: FormBuilder,
-    private router: Router //Inyeccion de dependencia para enrutar en componentes
+    private router: Router,//Inyeccion de dependencia para enrutar en componentes
+    private globalService: GlobalService 
   ) {}
 
   ngOnInit(): void {
     this.exampleForm = this.form.group({
       nombre: new FormControl('', [Validators.required]),
-      cedula: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-      ]),
+      cedula: new FormControl('', [Validators.required,Validators.minLength(8),]),
     });
 
     this.consultShifts();
   }
 
   consultShifts() {
-    let shiftsLocalStorage = localStorage.getItem('User');
-
+    let shiftsLocalStorage = JSON.parse(localStorage.getItem('User')!);
     if (shiftsLocalStorage) {
-      console.log('Si existe', shiftsLocalStorage);
-      let parsedBody = JSON.parse(shiftsLocalStorage);
-      console.warn('data nueva', parsedBody);
-
-      for (let i = 0; i < parsedBody.length; i++) {
-        console.log('Iteracion Array', parsedBody[i]);
-        this.iteratorarray.push(parsedBody[i]);
+      for (let i = 0; i < shiftsLocalStorage.length; i++) {
+        this.iteratorarray.push(shiftsLocalStorage[i]);
       }
     }
   }
 
   agregarUsuarios(type: any) {
     alert(type + 'Se ha generado su turno');
-
     type UserArray = Array<{ id: number; text: string }>;
-
-    const arr = [
-      {
+    const arr = {
         tipo: type,
         nombre: this.exampleForm.get('nombre')?.value,
         cedula: this.exampleForm.get('cedula')?.value,
-      },
-    ];
+    }
     this.iteratorarray.push(arr);
     localStorage.setItem('User', JSON.stringify(this.iteratorarray)); //Se llama el array y se convierte a String
     this.router.navigate(['home']); //Asignacion de enrutamiento

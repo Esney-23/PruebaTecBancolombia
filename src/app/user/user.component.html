@@ -1,17 +1,19 @@
 <section class="container">
   <h1>FORMULARIO</h1>
 
-
   <form [formGroup]="exampleForm">
-    
     <div *ngIf="showBtns">
-      <label for="" class="form-label">Nombre</label>
-      <input type="text" formControlName="nombre">
-      <p *ngIf="exampleForm.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
+      <div class="form-fields">
+        <label for="" class="form-label">Nombre</label>
+        <input type="text" formControlName="nombre">
+        <p *ngIf="exampleForm.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
+      </div>
 
-      <label for="" class="form-label">Cedula</label>
-      <input type="text" formControlName="cedula">
-      <p *ngIf="exampleForm.get('cedula')?.errors?.['required']">El campo cedula es requerido</p>
+      <div class="form-fields">
+        <label for="" class="form-label">Cedula</label>
+        <input type="text" formControlName="cedula">
+        <p *ngIf="exampleForm.get('cedula')?.errors?.['required']">El campo cedula es requerido</p>
+      </div>
 
       <button class="btn btn-primary" [disabled]="!exampleForm.valid" (click)="showShifts()">Solicitar turno</button>
     </div>
