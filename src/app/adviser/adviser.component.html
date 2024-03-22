@@ -1,24 +1,24 @@
 <section class="container">
   <h1>FORMULARIO ASESOR</h1>
 
-  <form [formGroup]="exampleForm">
+  <form [formGroup]="adviserForm">
     <div *ngIf="showBtns">
       <div class="form-fields">
         <label for="" class="form-label">Nombre</label>
         <input type="text" formControlName="nombre">
 
-        <p *ngIf="exampleForm.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
+        <p *ngIf="adviserForm.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
       </div>
 
       <div>
         <label for="" class="form-label">Numero Asesor</label>
 
-        <input type="text" formControlName="cedula">
+        <input type="text" formControlName="idAsesor">
 
-        <p *ngIf="exampleForm.get('cedula')?.errors?.['required']">El campo cedula es requerido</p>
+        <p *ngIf="adviserForm.get('idAsesor')?.errors?.['required']">El campo cedula es requerido</p>
       </div>
 
-      <button class="btn btn-primary" [disabled]="!exampleForm.valid" (click)="showShifts()">Ingresar</button>
+      <button class="btn btn-primary" [disabled]="!adviserForm.valid" (click)="showShifts()">Ingresar</button>
     </div>
 
     <div class="container text-center" *ngIf="!showBtns">
@@ -30,7 +30,7 @@
       <div class="row align-items-start"*ngFor="let item of listUser">
         <div class="col title">{{ item.nombre }}</div>
         <div class="col title">{{ item.cedula }}</div>
-        <div class="col title"><button type="button" class="btn btn-success">Asignar</button></div>
+        <div class="col title"><button type="button" class="btn btn-success" (click)=" addTurnUser(item)">Asignar</button></div>
       </div>
       
     </div>

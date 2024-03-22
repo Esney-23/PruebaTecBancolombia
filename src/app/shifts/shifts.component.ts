@@ -17,7 +17,7 @@ export class ShiftsComponent implements OnInit{
   }
 
   listUserShifts() {
-    let shiftsLocalStorage = JSON.parse(localStorage.getItem('User')!);
+    let shiftsLocalStorage = JSON.parse(localStorage.getItem('userTurn')!);
     if (shiftsLocalStorage) {
       for (let i = 0; i < shiftsLocalStorage.length; i++) {
         this.listUser.push(shiftsLocalStorage[i]);

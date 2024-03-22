@@ -43,9 +43,8 @@ export class UserComponent implements OnInit {
     }
   }
 
-  agregarUsuarios(type: any) {
+  addUser(type: any) {
     alert(type + 'Se ha generado su turno');
-    type UserArray = Array<{ id: number; text: string }>;
     const arr = {
         tipo: type,
         nombre: this.exampleForm.get('nombre')?.value,
