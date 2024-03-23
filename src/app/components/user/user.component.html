@@ -1,0 +1,24 @@
+<section class="container">
+  <h1>{{ title }}</h1>
+  <form [formGroup]="exampleForm">
+    <div *ngIf="showBtns">
+      <div class="form-fields">
+        <label for="" class="form-label">Nombre</label>
+        <input type="text" formControlName="nombre">
+        <p *ngIf="exampleForm.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
+      </div>
+      <div class="form-fields">
+        <label for="" class="form-label">Cedula</label>
+        <input type="text" formControlName="cedula">
+        <p *ngIf="exampleForm.get('cedula')?.errors?.['required']">El campo cedula es requerido</p>
+      </div>
+      <button class="btn btn-primary" [disabled]="!exampleForm.valid" (click)="showShifts()">Solicitar turno</button>
+    </div>
+    <div *ngIf="!showBtns" class="items">
+      <button class="btn btn-primary" (click)="addUser('alto')">Prioritario</button>
+      <button class="btn btn-primary" (click)="addUser('medio')">Buena Gente</button>
+      <button class="btn btn-primary" (click)="addUser('bajo')">Cliente Normal</button>
+      <button class="btn btn-primary" (click)="backMenu()">Inicio</button>
+    </div>
+  </form>
+</section>

@@ -1,1 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  height: 100vh;
+  max-width: 100vw;
+  padding: 30px 40px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.col {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0px;
+}
+
+h1 {
+  text-align: center;
+  border-bottom: 1px solid #888;
+  padding: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.link {
+  box-shadow: 2px 2px 5px #888;
+  background-color: #5893e9;
+  color: white;
+  padding: 10px 20px;
+}
+
+.link:hover {
+  background-color: #3971c4;
+  color: white;
+}
+
+.form-label {
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-right: 15px;
+}
+

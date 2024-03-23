@@ -1,0 +1,13 @@
+<section class="container">
+  <h1>Pantalla de turnos</h1>
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col title">Nombre</div>
+      <div class="col title">Cedula</div>
+      <div class="col title">Tipo de turno</div>
+      <div class="col title">Asesor</div>
+    </div>
+    <app-list [contentArray]="listUser" [showBtn]="false" [showIdAsesor]="true"></app-list>
+    <button class="btn btn-primary" (click)="backMenu()">Inicio</button>
+  </div>
+</section>

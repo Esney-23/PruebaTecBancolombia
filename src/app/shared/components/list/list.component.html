@@ -1,0 +1,18 @@
+<div class="row align-items-start" *ngFor="let item of contentArray">
+  <div class="col title">{{ item.nombre }}</div>
+  <div class="col title">{{ item.cedula }}</div>
+  <div class="col title">{{ item.tipo }}</div>
+  <div class="col title" *ngIf="showIdAsesor">{{ item.idAsesor }}</div>
+  <div class="col title" *ngIf="showBtn">
+    <button type="button" class="btn btn-success" (click)="setUserInfo(item)">Asignar</button>
+  </div>
+  <div class="col title" *ngIf="showBtnR">
+    <button type="button" class="btn btn-danger" (click)="retry(item, 'Reintentar')">Reintentar</button>
+  </div>
+  <div class="col title" *ngIf="showBtnR">
+    <button type="button" class="btn btn-danger" (click)="retry(item, 'Terminado')">Terminado</button>
+  </div>
+  <div class="col title" *ngIf="showBtnR">
+    <button type="button" class="btn btn-danger" (click)="retry(item, 'Rechazado')">No Atendido</button>
+  </div>
+</div>
