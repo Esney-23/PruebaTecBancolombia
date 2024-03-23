@@ -1,0 +1,37 @@
+<section class="container">
+  <h1>{{ title }}</h1>
+  <form [formGroup]="adviserForm">
+    <div *ngIf="showBtns">
+      <div class="form-fields">
+        <label for="" class="form-label">Nombre Asesor</label>
+        <input type="text" formControlName="nombre">
+        <p *ngIf="adviserForm.get('nombre')?.errors?.['required']">El campo nombre es requerido</p>
+      </div>
+      <div>
+        <label for="" class="form-label">Nùmero de Asesor</label>
+        <input type="text" formControlName="idAsesor">
+        <p *ngIf="adviserForm.get('idAsesor')?.errors?.['required']">El campo cedula es requerido</p>
+      </div>
+      <button class="btn btn-primary" [disabled]="!adviserForm.valid" (click)="showShifts()">Ingresar</button>
+    </div>
+    <div class="container text-center" *ngIf="!showBtns">
+      <div class="row align-items-start">
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('alto')"
+            [disabled]="activeFlag">Prioritario</button></div>
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('medio')"
+            [disabled]="activeFlag">Buena Gente</button></div>
+        <div class="col title"><button class="btn btn-primary" (click)=" screenTurns('bajo')"
+            [disabled]="activeFlag">Cliente Normal</button></div>
+      </div>
+      <div class="row align-items-start title">
+        <div class="col title">Nombre</div>
+        <div class="col title">Cedula</div>
+        <div class="col title">Tipo de Turno</div>
+        <div class="col title">Acciòn</div>
+      </div>
+      <app-list [contentArray]="priorityValidation" [showBtnR]="showBtnListR" [showBtn]="showBtnList"
+        (emitUserInfo)="addTurnUser($event)" (reintentar)="chageStatus($event)"></app-list>
+        <button class="btn btn-primary" (click)="backMenu()">Inicio</button>
+    </div>
+  </form>
+</section>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,9 @@ import { Injectable } from '@angular/core';
 export class GlobalService {
   private iteratorarray: string[] = [];
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   consultShifts() {
     let shiftsLocalStorage = JSON.parse(localStorage.getItem('User')!);
@@ -16,5 +19,9 @@ export class GlobalService {
       }
     }
     return this.iteratorarray;
+  }
+
+  backMenu() {
+    this.router.navigate(['home']);
   }
 }

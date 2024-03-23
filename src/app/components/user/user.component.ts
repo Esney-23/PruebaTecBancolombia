@@ -6,29 +6,32 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GlobalService } from '../shared/services/global.service';
+import { GlobalService } from '../../shared/services/global.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
 })
-
 export class UserComponent implements OnInit {
   exampleForm!: FormGroup;
   showBtns = true;
-  iteratorarray: any[] = []; //Variables globales
+  iteratorarray: any[] = [];
+  title = 'Formulario Usuario';
 
   constructor(
     private form: FormBuilder,
-    private router: Router,//Inyeccion de dependencia para enrutar en componentes
-    private globalService: GlobalService 
+    private router: Router, 
+    private globalService: GlobalService
   ) {}
 
   ngOnInit(): void {
     this.exampleForm = this.form.group({
       nombre: new FormControl('', [Validators.required]),
-      cedula: new FormControl('', [Validators.required,Validators.minLength(8),]),
+      cedula: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
     });
 
     this.consultShifts();
@@ -46,16 +49,22 @@ export class UserComponent implements OnInit {
   addUser(type: any) {
     alert(type + 'Se ha generado su turno');
     const arr = {
-        tipo: type,
-        nombre: this.exampleForm.get('nombre')?.value,
-        cedula: this.exampleForm.get('cedula')?.value,
-    }
+      tipo: type,
+      nombre: this.exampleForm.get('nombre')?.value,
+      cedula: this.exampleForm.get('cedula')?.value,
+      atendido: 'No',
+    };
     this.iteratorarray.push(arr);
-    localStorage.setItem('User', JSON.stringify(this.iteratorarray)); //Se llama el array y se convierte a String
-    this.router.navigate(['home']); //Asignacion de enrutamiento
+    localStorage.setItem('User', JSON.stringify(this.iteratorarray));
+    this.router.navigate(['home']); 
   }
 
   showShifts() {
+    this.title = 'Seleccionar Turno'
     this.showBtns = !this.showBtns;
+  }
+
+  backMenu() {
+    this.globalService.backMenu();
   }
 }
